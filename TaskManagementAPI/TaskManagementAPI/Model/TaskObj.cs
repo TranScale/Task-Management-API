@@ -2,8 +2,9 @@
 {
     public class TaskObj
     {
-        public int TaskId { get; private set; } // Id của công việc
+        public int TaskObjId { get; private set; } // Id của công việc
         public int ProjectId { get; private set; } // Id của dự án mà công việc thuộc về
+        public ProjectObj? Project { get; private set; } // Dự án mà công việc thuộc về
         public string TaskName { get; private set; } = string.Empty; // Tên của công việc
         public string TaskDescription { get; private set; } = string.Empty; // Mô tả về công việc
         public bool IsCompleted { get; private set; } = false; // Trạng thái hoàn thành của công việc
@@ -17,20 +18,27 @@
         public TaskObj() { }
 
         // Constructor có tham số
-        public TaskObj(int projectId, string taskName, string taskDescription)
+        public TaskObj(int projectId, string taskName, string? taskDescription, DateTime? createAt)
         {
             ProjectId = projectId;
             TaskName = taskName;
-            TaskDescription = taskDescription;
+            if(taskDescription != null)
+                TaskDescription = taskDescription;
+            if(createAt != null)
+                CreatedAt = createAt.Value;
+            else 
+                CreatedAt = DateTime.UtcNow;
         }
 
         // Phương thức để cập nhật thông tin công việc
-        public void UpdateTask(string? taskName, string? taskDescription, DateTime? dueDate)
+        public void UpdateTask(string? taskName, string? taskDescription,DateTime? createAt, DateTime? dueDate)
         {
             if (taskName != null)
                 TaskName = taskName;
             if (taskDescription != null)
                 TaskDescription = taskDescription;
+            if (createAt != null)
+                CreatedAt = createAt.Value;
             if (dueDate != null)
                 DueDate = dueDate.Value;
         }

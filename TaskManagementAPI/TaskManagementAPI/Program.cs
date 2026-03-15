@@ -2,6 +2,8 @@ using Microsoft.EntityFrameworkCore;
 using TaskManagementAPI.Data;
 using TaskManagementAPI.Repositories.Implement;
 using TaskManagementAPI.Repositories.Interface;
+using TaskManagementAPI.Services.Interface;
+using TaskManagementAPI.Services.Implement;
 
 var builder = WebApplication.CreateBuilder(args);
   
@@ -18,6 +20,10 @@ builder.Services.AddSwaggerGen();
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
 // Fix for CS0311: Ensure UnitOfWork implements IUnitOfWork
 builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<IProjectMemberService,ProjectMemberService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
 
 var app = builder.Build();
 

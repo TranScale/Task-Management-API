@@ -2,7 +2,7 @@
 {
     public class ProjectObj
     {
-        public int ProjectId { get; private set; } //Id của dự án
+        public int ProjectObjId { get; private set; } //Id của dự án
         public string ProjectName { get; private set; } = string.Empty; // Tên của dự án
         public string ProjectDescription { get; private set; } = string.Empty; // Mô tả về dự án
         public DateTime StartDate { get; private set; } // Ngày bắt đầu của dự án
@@ -18,7 +18,7 @@
         public ICollection<ProjectMember> ProjectMembers { get; private set; } = new List<ProjectMember>();
 
         //Danh sách công việc liên quan đến dự án
-        //public ICollection<TaskObj> Tasks { get; private set; } = new List<TaskObj>();
+        public ICollection<TaskObj> Tasks { get; private set; } = new List<TaskObj>();
 
         //Constructor rỗng
         public ProjectObj() { }
@@ -62,6 +62,38 @@
         public void MarkAsDeleted()
         {
             IsDeleted = true;
+        }
+
+        // Phương thức để thêm thành viên vào dự án
+        public void AddProjectMember(ProjectMember projectMember)
+        {
+            ProjectMembers.Add(projectMember);
+        }
+
+        // Phương thức để xóa thành viên khỏi dự án
+        public void RemoveProjectMember(int userId)
+        {
+            var memberToRemove = ProjectMembers.FirstOrDefault(m => m.UserId == userId);
+            if (memberToRemove != null)
+            {
+                ProjectMembers.Remove(memberToRemove);
+            }
+        }
+
+        // Phương thức để thêm công việc vào dự án
+        public void AddTask(TaskObj task)
+        {
+            Tasks.Add(task);
+        }
+
+        // Phương thức để xóa công việc khỏi dự án
+        public void RemoveTask(int taskId)
+        {
+            var taskToRemove = Tasks.FirstOrDefault(t => t.TaskObjId == taskId);
+            if (taskToRemove != null)
+            {
+                Tasks.Remove(taskToRemove);
+            }
         }
 
     }

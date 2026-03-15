@@ -65,7 +65,7 @@ namespace TaskManagementAPI.Services.Implement
         {
             return new ProjectResponseDTO
             {
-                ProjectId = project.ProjectId,
+                ProjectId = project.ProjectObjId,
                 ProjectName = project.ProjectName,
                 ProjectDescription = project.ProjectDescription ?? "Không có mô tả",
                 StartDate = project.StartDate,
