@@ -8,5 +8,6 @@ namespace TaskManagementAPI.Services.Interface
         Task<IEnumerable<ProjectMemberResponseDTO>> GetProjectMembersAsync(int projectId);
         Task<bool> AddProjectMemberAsync(int projectId, ProjectMember projectMember);
         Task<bool> RemoveProjectMemberAsync(int projectId, int userId);
+        Task<bool> UpdateProjectMemberRoleAsync(int projectId, int userId, string newRole);
     }
 }

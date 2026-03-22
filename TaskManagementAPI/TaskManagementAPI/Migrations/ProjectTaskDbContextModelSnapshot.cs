@@ -47,36 +47,6 @@ namespace TaskManagementAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("ProjectMembers");
-
-                    b.HasData(
-                        new
-                        {
-                            ProjectMemberId = 1,
-                            MemberRole = "Project Manager",
-                            ProjectId = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            ProjectMemberId = 2,
-                            MemberRole = "Backend Developer",
-                            ProjectId = 1,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            ProjectMemberId = 3,
-                            MemberRole = "Technical Lead",
-                            ProjectId = 2,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            ProjectMemberId = 4,
-                            MemberRole = "QA/Tester",
-                            ProjectId = 2,
-                            UserId = 3
-                        });
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.ProjectObj", b =>
@@ -110,26 +80,6 @@ namespace TaskManagementAPI.Migrations
                     b.HasKey("ProjectObjId");
 
                     b.ToTable("Projects");
-
-                    b.HasData(
-                        new
-                        {
-                            ProjectObjId = 1,
-                            IsDeleted = false,
-                            ProjectDescription = "Làm trang web bán hàng cho đối tác",
-                            ProjectName = "Dự án Website E-commerce",
-                            StartDate = new DateTime(2026, 2, 13, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(3970),
-                            Status = 1
-                        },
-                        new
-                        {
-                            ProjectObjId = 2,
-                            IsDeleted = false,
-                            ProjectDescription = "App quản lý nhân sự",
-                            ProjectName = "Dự án Mobile App React Native",
-                            StartDate = new DateTime(2026, 3, 25, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(3976),
-                            Status = 0
-                        });
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.TaskAssignment", b =>
@@ -153,26 +103,6 @@ namespace TaskManagementAPI.Migrations
                     b.HasIndex("UserId");
 
                     b.ToTable("TaskAssignments");
-
-                    b.HasData(
-                        new
-                        {
-                            TaskAssignmentId = 1,
-                            TaskId = 1,
-                            UserId = 1
-                        },
-                        new
-                        {
-                            TaskAssignmentId = 2,
-                            TaskId = 2,
-                            UserId = 2
-                        },
-                        new
-                        {
-                            TaskAssignmentId = 3,
-                            TaskId = 3,
-                            UserId = 2
-                        });
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.TaskObj", b =>
@@ -208,38 +138,6 @@ namespace TaskManagementAPI.Migrations
                     b.HasIndex("ProjectId");
 
                     b.ToTable("Tasks");
-
-                    b.HasData(
-                        new
-                        {
-                            TaskObjId = 1,
-                            CreatedAt = new DateTime(2026, 2, 15, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4035),
-                            DueDate = new DateTime(2026, 2, 23, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4035),
-                            IsCompleted = true,
-                            ProjectId = 1,
-                            TaskDescription = "Vẽ sơ đồ ERD và viết script SQL",
-                            TaskName = "Thiết kế Database"
-                        },
-                        new
-                        {
-                            TaskObjId = 2,
-                            CreatedAt = new DateTime(2026, 2, 24, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4036),
-                            DueDate = new DateTime(2026, 3, 20, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4037),
-                            IsCompleted = false,
-                            ProjectId = 1,
-                            TaskDescription = "Sử dụng JWT để làm tính năng Authentication",
-                            TaskName = "Code API Đăng nhập"
-                        },
-                        new
-                        {
-                            TaskObjId = 3,
-                            CreatedAt = new DateTime(2026, 3, 15, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4037),
-                            DueDate = new DateTime(2026, 3, 27, 4, 19, 57, 285, DateTimeKind.Utc).AddTicks(4038),
-                            IsCompleted = false,
-                            ProjectId = 2,
-                            TaskDescription = "Cài đặt Android Studio và Xcode",
-                            TaskName = "Setup môi trường Mobile"
-                        });
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.User", b =>
@@ -257,23 +155,6 @@ namespace TaskManagementAPI.Migrations
                     b.HasKey("UserId");
 
                     b.ToTable("Users");
-
-                    b.HasData(
-                        new
-                        {
-                            UserId = 1,
-                            UserName = "Nguyễn Văn A (Manager)"
-                        },
-                        new
-                        {
-                            UserId = 2,
-                            UserName = "Trần Thị B (Developer)"
-                        },
-                        new
-                        {
-                            UserId = 3,
-                            UserName = "Lê Văn C (Tester)"
-                        });
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.ProjectMember", b =>
@@ -287,7 +168,7 @@ namespace TaskManagementAPI.Migrations
                     b.HasOne("TaskManagementAPI.Model.User", "User")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("User");
@@ -303,13 +184,13 @@ namespace TaskManagementAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskManagementAPI.Model.User", "User")
+                    b.HasOne("TaskManagementAPI.Model.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("User");
+                    b.Navigation("Users");
 
                     b.Navigation("task");
                 });

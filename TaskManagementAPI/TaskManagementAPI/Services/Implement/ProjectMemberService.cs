@@ -67,6 +67,19 @@ namespace TaskManagementAPI.Services.Implement
             return true;
         }
 
+        public async Task<bool> UpdateProjectMemberRoleAsync(int projectId, int userId, string newRole)
+        {
+            var project = await _projectRepository.GetProjectWithMemberAndTaskByIdAsync(projectId);
+            if (project == null || project.IsDeleted)
+                return false;
+            var member = project.ProjectMembers.FirstOrDefault(pm => pm.UserId == userId);
+            if (member == null)
+                return false;
+            member.UpdateMemberRole(newRole);
+            await _unitOfWork.SaveChangesAsync();
+            return true;
+        }
+
 
         private ProjectMemberResponseDTO MapToResponseDTO(ProjectMember projectMember)
         {

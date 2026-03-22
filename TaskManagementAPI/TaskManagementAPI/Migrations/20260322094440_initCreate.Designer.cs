@@ -12,8 +12,8 @@ using TaskManagementAPI.Data;
 namespace TaskManagementAPI.Migrations
 {
     [DbContext(typeof(ProjectTaskDbContext))]
-    [Migration("20260315034146_InitCreate")]
-    partial class InitCreate
+    [Migration("20260322094440_initCreate")]
+    partial class initCreate
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -187,15 +187,15 @@ namespace TaskManagementAPI.Migrations
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("TaskManagementAPI.Model.User", "user")
+                    b.HasOne("TaskManagementAPI.Model.User", "Users")
                         .WithMany()
                         .HasForeignKey("UserId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("task");
+                    b.Navigation("Users");
 
-                    b.Navigation("user");
+                    b.Navigation("task");
                 });
 
             modelBuilder.Entity("TaskManagementAPI.Model.TaskObj", b =>

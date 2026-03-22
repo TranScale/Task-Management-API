@@ -15,10 +15,11 @@
         public ProjectMember() { }
 
         // Constructor có tham số
-        public ProjectMember(int projectId, int userId)
+        public ProjectMember(int projectId, int userId, string memberRole)
         {
             ProjectId = projectId;
             UserId = userId;
+            MemberRole = memberRole;
         }
 
         // Phương thức để cập nhật vai trò của thành viên trong dự án

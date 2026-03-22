@@ -17,13 +17,19 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
+//Repositories
 builder.Services.AddScoped(typeof(IRepository<>), typeof(Repository<>));
-// Fix for CS0311: Ensure UnitOfWork implements IUnitOfWork
-builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
-builder.Services.AddScoped<IProjectService, ProjectService>();
-builder.Services.AddScoped<IProjectMemberService,ProjectMemberService>();
-builder.Services.AddScoped<ITaskService, TaskService>();
 builder.Services.AddScoped<IProjectRepository, ProjectRepository>();
+builder.Services.AddScoped<ITaskRepository, TaskRepository>();
+builder.Services.AddScoped<IUnitOfWork, UnitOfWork>();
+
+//Services
+builder.Services.AddScoped<IProjectService, ProjectService>();
+builder.Services.AddScoped<ITaskService, TaskService>();
+builder.Services.AddScoped<IProjectMemberService, ProjectMemberService>();
+
+
+
 
 var app = builder.Build();
 

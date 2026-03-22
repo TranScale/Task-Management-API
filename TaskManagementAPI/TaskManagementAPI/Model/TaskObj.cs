@@ -44,15 +44,24 @@
         }
 
         // Phương thức để cập nhật trạng thái hoàn thành của công việc
-        public void UpdateTaskStatus(bool isCompleted)
+        public void UpdateTaskStatus()
         {
-            IsCompleted = isCompleted;
+            if(IsCompleted)
+                IsCompleted = false;
+            else
+                IsCompleted = true;  
         }
 
         // Phương thức để thêm người được giao công việc
         public void AddTaskAssignment(TaskAssignment taskAssignment)
         {
             TaskAssignments.Add(taskAssignment);
+        }
+
+        // Phương thức để xóa người được giao công việc
+        public void RemoveTaskAssignment(TaskAssignment taskAssignment)
+        {
+            TaskAssignments.Remove(taskAssignment);
         }
 
     }
